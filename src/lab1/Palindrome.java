@@ -5,8 +5,9 @@
  */
 package lab1;
 
+import java.util.Scanner;
+
 /**
- *
  * @author w01266833
  */
 public class Palindrome {
@@ -15,38 +16,35 @@ public class Palindrome {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        for(string s in new String()){
-        
+        String name;
+        if (args.length != 0) {
+            name = String.join(" ", args);
+
+        } else {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Please enter a potential palindrome:");
+            name = scanner.nextLine();
         }
-       String o1 = "Hello";
-       String o2 = "Hel";
-       o2 += "lo";
-       System.out.println(o1.equals(o2));
-       System.out.println(args.length);
-       System.out.println(args[0]);
-       if (args.length == 0)		// version 1
-        {
-            System.out.println("USAGE: java Palindrome <name>");
-            System.exit(1);
-	}
-        String name = args[1];
-        if (name == null)
-        {
+        if (name == null) {
             System.err.println("No name entered");
             System.exit(1);
         }
-
-        System.out.print("+");
-        for(int i = 0; i < name.length(); i++)
-            System.out.print("-");
-        System.out.println("+");
-
-        System.out.println("|" + name + "|");
-
-        System.out.print("+");
-        for(int i = 0; i < name.length(); i++)
-            System.out.print("-");
-        System.out.println("+");
+        //Replace invalid characters
+        String parsed = name.replaceAll("(\\\\w)(\\\\s+)([\\\\.,])","");
+        StringBuilder sb = new StringBuilder(parsed);
+        System.out.println(sb.toString());
+        //Create reversed copy to compare
+        StringBuilder sbCopy = new StringBuilder(parsed).reverse();
+        System.out.println(sbCopy.toString());
+        boolean isPalindrome = true;
+        //Loop through characters
+        for(int i = 0; i < sb.length(); i++){
+            //Check if character is equal at same position (front or back)
+            if(sb.charAt(i) != sbCopy.charAt(i))
+                isPalindrome = false;
+        }
+        //Print result
+        System.out.println(isPalindrome);
     }
-    
+
 }
