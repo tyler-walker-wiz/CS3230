@@ -1,7 +1,6 @@
 package lab2;
 
 import java.util.Scanner;
-import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,68 +12,49 @@ public class FractionCalc {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String fStr;
+        String fracInput;
         if (args.length != 0) {
-            fStr = String.join(" ", args);
+            fracInput = String.join(" ", args);
 
         } else {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Please enter input in the form: [-]n1 / [-]d1 op [-]n2 / [-]d2:");
-            fStr = scanner.nextLine();
+            System.out.println("Please enter input in the form [-]n1 / [-]d1 op [-]n2 / [-]d2:");
+            fracInput = scanner.nextLine();
         }
-        if (fStr == null) {
+        if (fracInput == null) {
             System.err.println("No input entered");
             System.exit(1);
         }
 
-        fStr = fStr.trim();
+        fracInput = fracInput.trim();
 
-        if (fStr.matches(regex))
-            System.out.println("Match:    " + fStr);
+        if (fracInput.matches(regex))
+            System.out.println("Match:    " + fracInput);
         else
-            System.out.println("NO match: " + fStr);
+            System.out.println("NO match: " + fracInput);
 
-        int denom1, denom2, numer1, numer2;
+        int denLeft, denRight, numLeft, numRight;
         String operator;
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(fStr);
+        Matcher matcher = pattern.matcher(fracInput);
         if (!matcher.matches()) {
             System.out.println("Incorrect Format");
             return;
         }
         try {
-            numer1 = Integer.parseInt(matcher.group(1));
-            denom1 = Integer.parseInt(matcher.group(2));
+            numLeft = Integer.parseInt(matcher.group(1));
+            denLeft = Integer.parseInt(matcher.group(2));
             operator = matcher.group(3);
-            numer2 = Integer.parseInt(matcher.group(4));
-            denom2 = Integer.parseInt(matcher.group(5));
+            numRight = Integer.parseInt(matcher.group(4));
+            denRight = Integer.parseInt(matcher.group(5));
         } catch (Exception e) {
             System.out.println("Incorrect format");
             throw e;
         }
 
-        //StringTokenizer tokenizer = new StringTokenizer(fStr);
-
-//        if (tokenizer.countTokens() != 5) {
-//            System.out.println("Incorrect format");
-//            return;
-//        }
-
-//        try {
-//            denom1 = Integer.parseInt(tokenizer.nextToken());
-//            denom2 = Integer.parseInt(tokenizer.nextToken());
-//            numer1 = Integer.parseInt(tokenizer.nextToken());
-//            numer2 = Integer.parseInt(tokenizer.nextToken());
-//            operator = tokenizer.nextToken();
-//        }
-//        catch(Exception e){
-//            System.out.println("Incorrect format");
-//            throw e;
-//        }
-
         // Execute logic
-        Fraction fractionLeft = new Fraction(numer1, denom1);
-        Fraction fractionRight = new Fraction(numer2, denom2);
+        Fraction fractionLeft = new Fraction(numLeft, denLeft);
+        Fraction fractionRight = new Fraction(numRight, denRight);
         Fraction result;
 
         switch (operator) {
@@ -94,7 +74,12 @@ public class FractionCalc {
                 throw new IllegalArgumentException("Operator is not of the valid values.");
         }
 
-        System.out.println("Calculation result: " + result.toString());
+        System.out.println("Calculation result: " + result);
 
+
+//        Tests
+//        System.out.println(fractionLeft.equals(fractionRight));
+//        System.out.println(fractionLeft.equals(2));
+//        System.out.println(fractionLeft.equals("4"));
     }
 }
