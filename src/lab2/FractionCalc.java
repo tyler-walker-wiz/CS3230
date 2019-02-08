@@ -1,4 +1,10 @@
-package lab2;
+/*
+ * Author: Tyler Walker
+ * Assignment: Lab2
+ * Course: CS 3230
+ */
+
+//package lab2;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -17,6 +23,7 @@ public class FractionCalc {
             fracInput = String.join(" ", args);
 
         } else {
+            //Get input
             Scanner scanner = new Scanner(System.in);
             System.out.println("Please enter input in the form [-]n1 / [-]d1 op [-]n2 / [-]d2:");
             fracInput = scanner.nextLine();
@@ -26,8 +33,10 @@ public class FractionCalc {
             System.exit(1);
         }
 
+        //Trim whitespace from edges
         fracInput = fracInput.trim();
 
+        //Check for a match
         if (fracInput.matches(regex))
             System.out.println("Match:    " + fracInput);
         else
@@ -35,13 +44,16 @@ public class FractionCalc {
 
         int denLeft, denRight, numLeft, numRight;
         String operator;
+        //Match regex string
         Pattern pattern = Pattern.compile(regex);
+        //Get matches
         Matcher matcher = pattern.matcher(fracInput);
         if (!matcher.matches()) {
             System.out.println("Incorrect Format");
             return;
         }
         try {
+            //Get each fraction piece and place into variable
             numLeft = Integer.parseInt(matcher.group(1));
             denLeft = Integer.parseInt(matcher.group(2));
             operator = matcher.group(3);
@@ -57,6 +69,7 @@ public class FractionCalc {
         Fraction fractionRight = new Fraction(numRight, denRight);
         Fraction result;
 
+        //Decide which operation to execute based on operator
         switch (operator) {
             case "+":
                 result = fractionLeft.add(fractionRight);
@@ -74,6 +87,7 @@ public class FractionCalc {
                 throw new IllegalArgumentException("Operator is not of the valid values.");
         }
 
+        //Print result
         System.out.println("Calculation result: " + result);
 
 
