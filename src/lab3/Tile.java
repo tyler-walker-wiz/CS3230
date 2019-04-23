@@ -9,8 +9,10 @@ import java.util.Map;
 
 public class Tile extends JPanel {
     static Color grd;
+    static Color back;
     static Rectangle rect;
     static GradientPaint grad;
+    static GradientPaint selectedGrad;
     static GradientPaint gradMain;
     static GradientPaint gradReverse;
     static Polygon poly1h;
@@ -26,12 +28,18 @@ public class Tile extends JPanel {
     public Tile left;
     public Tile right;
     public Tile top;
+    public boolean selected;
+    public int zOrder;
+    public int x;
+    public int y;
 
     static {
         grd = new Color(37, 165, 14);
+        back = new Color(237, 213, 120);
         rect = new Rectangle(20, 0, 70, 70);
         grad = new GradientPaint(100, 0, grd, 140, 100, Color.WHITE);
-        gradMain = new GradientPaint(100, 0, Color.orange, 140, 100, Color.WHITE);
+        selectedGrad = new GradientPaint(100, 0, Color.yellow, 140, 100, Color.WHITE);
+        gradMain = new GradientPaint(100, 0, back, 140, 100, Color.WHITE);
         gradReverse = new GradientPaint(0, 100, Color.WHITE, 100, 100, grd);
         poly1h = SetPolygonH(0, 10, 80, 70);
         poly1w = SetPolygonV(0, 10, 80, 70);
@@ -48,17 +56,16 @@ public class Tile extends JPanel {
     }
 
     public boolean matches(Tile other) {
-        return this.getClass().equals(other.getClass());
+        return this.getClass().equals(other.getClass()) && !this.equals(other);
     }
 
     public Tile() {
+        setSize(90, 90);
         setPreferredSize(new Dimension(90, 90));
+        setOpaque(false);
         setBackground(Color.PINK);
     }
 
-    private void DealTiles() {
-
-    }
 
     private static Polygon SetPolygonV(int x, int y, int height, int width) {
         int shift = 10;
@@ -81,12 +88,18 @@ public class Tile extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g.create();
-        g2.setPaint(gradMain);
+        if (selected)
+            g2.setPaint(selectedGrad);
+        else
+            g2.setPaint(gradMain);
         g2.fill(rect);
         g2.fillPolygon(poly2h);
         g2.fillPolygon(poly2w);
 
-        g2.setColor(Color.black);
+        if (selected)
+            g2.setColor(Color.yellow);
+        else
+            g2.setColor(Color.black);
         g2.draw(rect);
         g2.drawPolygon(poly2h);
         g2.drawPolygon(poly2w);
@@ -100,11 +113,7 @@ public class Tile extends JPanel {
         g2.setColor(Color.black);
         g2.drawPolygon(poly1h);
         g2.drawPolygon(poly1w);
-
-
     }
-
-
 }
 
 class TileTest {

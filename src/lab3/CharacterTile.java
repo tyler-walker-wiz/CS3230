@@ -64,8 +64,8 @@ public class CharacterTile extends Tile {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawString(Character.toString(symbol), 60, 50);
-        g.drawString(toChinese(), 40, 70);
+        g.drawString(Character.toString(symbol), 75, 15);
+        g.drawString(toChinese(), 50, 50);
         setToolTipText(toString());
     }
 }

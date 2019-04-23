@@ -4,7 +4,7 @@
  * Course: CS 3230
  */
 
-//package lab2;
+package lab2;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;

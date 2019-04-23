@@ -5,23 +5,27 @@ import java.awt.*;
 
 
 public class CircleTile extends RankTile {
-
     public CircleTile(int rank) {
         super(rank);
-        setLayout(new FlowLayout(FlowLayout.CENTER));
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 2;
-        c.anchor = GridBagConstraints.EAST;
-        c.ipadx = -20;
-        //setLayout(new GridBagLayout());
-        JPanel containerPanel = new JPanel();
-        containerPanel.setLayout(new GridLayout(3, 3));
-        containerPanel.setPreferredSize(new Dimension(50, 75));
-        containerPanel.setLocation(20, 0);
-        for (int i = 1; i <= rank; i++)
-            containerPanel.add(new Circle(Color.blue, Color.RED));
-        add(containerPanel, c);
-
+        Color color;
+        int yPos = 5;
+        int firstRow = 35;
+        if (rank < 4)
+            firstRow = 50;
+        for (int i = 0; i < rank; i++) {
+            if (i % 3 == 0)
+                color = Color.red;
+            else if (i % 2 == 0)
+                color = Color.blue;
+            else
+                color = Color.green;
+            if (i < 3)
+                add(new Circle(color, firstRow, (i * 20) + yPos, rank));
+            else if (i < 6)
+                add(new Circle(color, firstRow + 15, ((i - 3) * 20) + yPos, rank));
+            else
+                add(new Circle(color, firstRow + 30, ((i - 6) * 20) + yPos, rank));
+        }
     }
 
     @Override
@@ -37,13 +41,16 @@ public class CircleTile extends RankTile {
 class Circle extends JComponent {
     private Color color;
     private Color dotColor;
+    private int x;
+    private int y;
+    private int rank;
 
-    static final int OFFSETX = 30;
-    static final int OFFSETY = 20;
-
-    public Circle(Color color, Color dotColor) {
+    public Circle(Color color, int x, int y, int rank) {
         this.color = color;
-        this.dotColor = dotColor;
+        this.dotColor = Color.white;
+        this.x = x;
+        this.y = y;
+        this.rank = rank;
     }
 
     @Override
@@ -51,18 +58,25 @@ class Circle extends JComponent {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setPaint(this.color);
-        g2.fillOval(0, 0, 12, 12);
-
-        g2.setColor(this.dotColor);
-//        g2.drawLine(1, 6, 11, 6);
-//        //g2.rotate(Math.toRadians(45));
-//        //g2.drawLine(0, 6, 12, 6);
-//        g2.drawLine(6, 1, 6, 11);
-
-        g2.fillOval(4, 7, 2, 2);
-        g2.fillOval(4, 3, 2, 2);
-        g2.fillOval(8, 3, 2, 2);
-        g2.fillOval(8, 7, 2, 2);
+        if (rank == 1) {
+            setSize(40, 40);
+            setLocation(35, 20);
+            g2.fillOval(0, 0, 30, 30);
+            g2.setColor(this.dotColor);
+            g2.fillOval(10, 15, 3, 3);
+            g2.fillOval(10, 9, 3, 3);
+            g2.fillOval(18, 15, 3, 3);
+            g2.fillOval(18, 9, 3, 3);
+        } else {
+            setSize(20, 20);
+            setLocation(x, y);
+            g2.fillOval(0, 0, 12, 12);
+            g2.setColor(this.dotColor);
+            g2.fillOval(4, 7, 2, 2);
+            g2.fillOval(4, 3, 2, 2);
+            g2.fillOval(8, 3, 2, 2);
+            g2.fillOval(8, 7, 2, 2);
+        }
 
 
     }

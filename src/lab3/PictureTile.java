@@ -17,6 +17,6 @@ public abstract class PictureTile extends Tile {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Image img = Tile.face.get(name).getImage();
-        g.drawImage(img, 40, 40, this);
+        g.drawImage(img, 25, 5, this);
     }
 }

@@ -16,23 +16,23 @@ public class WhiteDragonTile extends Tile {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g.create();
         g2.setPaint(Color.blue);
-        g2.drawRect(40,30,60,60);
-        g2.drawRect(45,35,50,50);
+        g2.drawRect(25,5,60,60);
+        g2.drawRect(30,10,50,50);
 
-        g2.fillRect(40,30,10,6);
-        g2.fillRect(60,30,10,5);
-        g2.fillRect(80,30,10,5);
+        g2.fillRect(25,5,10,6);
+        g2.fillRect(45,5,10,5);
+        g2.fillRect(65,5,10,5);
 
-        g2.fillRect(40,85,10,5);
-        g2.fillRect(60,85,10,5);
-        g2.fillRect(80,85,10,5);
+        g2.fillRect(25,60,10,5);
+        g2.fillRect(45,60,10,5);
+        g2.fillRect(65,60,10,5);
 
-        g2.fillRect(40,45,5,10);
-        g2.fillRect(40,65,5,10);
+        g2.fillRect(25,20,5,10);
+        g2.fillRect(25,40,5,10);
 
-        g2.fillRect(95,35,5,10);
-        g2.fillRect(95,55,5,10);
-        g2.fillRect(95,75,5,11);
+        g2.fillRect(80,10,5,10);
+        g2.fillRect(80,30,5,10);
+        g2.fillRect(80,50,5,11);
     }
 }
 

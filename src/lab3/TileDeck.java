@@ -42,6 +42,13 @@ public class TileDeck {
         deck.add(new SeasonTile("Summer"));
         deck.add(new SeasonTile("Fall"));
         deck.add(new SeasonTile("Winter"));
+
+        shuffle();
+
+    }
+
+    private void dealTiles() {
+
     }
 
     public void shuffle() {
